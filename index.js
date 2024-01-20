@@ -1,6 +1,10 @@
 const DUMMY_TEXT = "DUMMY TEXT";
 
 const body = document.querySelector("body");
+body.style.maxWidth = "960px";
+body.style.maxHeight = "960px";
+body.style.display = "block";
+body.style.margin = "0 auto";
 const button = document.createElement("button");
 button.textContent = "Initialize Grid";
 button.style.padding = "10px";
@@ -33,12 +37,12 @@ function generateGrid(){
     const rowItems = [width];
     for (let i = 0; i < width; i++){
         rowContainers[i] = document.createElement("div");
-        rowContainers[i].style.cssText = "display: flex; flex-direction: row; background-color: blue;";
-        
+        rowContainers[i].style.cssText = "display: flex; flex-direction: row; background-color: blue; ";
+        rowContainers[i].style.cssText = "align-items: stretch;";
         rowItems[i] = [length];
         for (let j = 0; j < length; j++){
             rowItems[i][j] = document.createElement("div");
-            rowItems[i][j].style.cssText = "background-color: yellow; padding: 10px;";
+            rowItems[i][j].style.cssText = "background-color: yellow; padding: 1px;";
             rowItems[i][j].addEventListener("mouseenter", (e) => {
                 e.currentTarget.style.backgroundColor = "black";
             })
@@ -54,6 +58,7 @@ function initializeGridContainer(){
     gridContainer = document.createElement("div");
     gridContainer.setAttribute("id", "gridContainer");
     gridContainer.style.cssText = "display: flex; flex-direction: column; background-color: red; padding: 10px";
+    gridContainer.style.cssText = "align-items: stretch;";
 }
 
 generateGrid();

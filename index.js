@@ -37,12 +37,11 @@ function generateGrid(){
     const rowItems = [width];
     for (let i = 0; i < width; i++){
         rowContainers[i] = document.createElement("div");
-        rowContainers[i].style.cssText = "display: flex; flex-direction: row; background-color: blue; ";
-        rowContainers[i].style.cssText = "align-items: stretch;";
+        rowContainers[i].style.cssText = "display: flex; flex-direction: row; background-color: blue;";
         rowItems[i] = [length];
         for (let j = 0; j < length; j++){
             rowItems[i][j] = document.createElement("div");
-            rowItems[i][j].style.cssText = "background-color: yellow; padding: 1px;";
+            rowItems[i][j].style.cssText = "background-color: yellow; padding: 10px;";
             rowItems[i][j].addEventListener("mouseenter", (e) => {
                 e.currentTarget.style.backgroundColor = "black";
             })
@@ -57,8 +56,7 @@ function generateGrid(){
 function initializeGridContainer(){
     gridContainer = document.createElement("div");
     gridContainer.setAttribute("id", "gridContainer");
-    gridContainer.style.cssText = "display: flex; flex-direction: column; background-color: red; padding: 10px";
-    gridContainer.style.cssText = "align-items: stretch;";
+    gridContainer.style.cssText = "display: flex; flex-direction: column; background-color: red; align-content: stretch;";
 }
 
 generateGrid();

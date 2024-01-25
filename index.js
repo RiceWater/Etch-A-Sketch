@@ -19,7 +19,6 @@ body.appendChild(gridContainer);
 
 let length = 16;
 let width = 16;
-let itemSize = 960 / (length * width);
 button.addEventListener("click", () => {
     length = prompt("Input number of columns (X axis)");
     while (length > 100 || length < 1 ){
@@ -31,7 +30,6 @@ button.addEventListener("click", () => {
         width = prompt("Number of rows must be within 1-100");
         if (width == undefined) break;
     }
-    initializeItemSize();
     generateGrid();
 })
 
@@ -73,9 +71,6 @@ function initializeGridContainer(){
     gridContainer.style.maxHeight = "780px";
 }
 
-function initializeItemSize(){
-    itemSize = 960 / (width * length);
-}
 generateGrid();
 
  

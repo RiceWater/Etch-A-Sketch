@@ -35,19 +35,37 @@ function generateGrid(){
     initializeGridContainer();
     const rowContainers = [width];
     const rowItems = [width];
+    const rowItemsCounter = [width];
+    const rowItemsOrigColors = [width];
     for (let i = 0; i < width; i++){
         rowContainers[i] = document.createElement("div");
         rowContainers[i].style.cssText = "display: flex; flex-direction: row; background-color: blue;";
         rowContainers[i].style.flexGrow = 1;
         rowItems[i] = [length];
-
+        rowItemsCounter[i] = [length];
+        rowItemsOrigColors[i] = [length];
         for (let j = 0; j < length; j++){
             rowItems[i][j] = document.createElement("div");
             rowItems[i][j].style.flexGrow = 1;
+            rowItemsCounter[i][j] = 0;
+            rowItemsOrigColors[i][j] = [3];
 
             rowItems[i][j].style.backgroundColor = "yellow";
             rowItems[i][j].addEventListener("mouseenter", (e) => {
+                rowItemsCounter[i][j]++;
                 e.currentTarget.style.backgroundColor = generateRGB();
+                let bg_rgb = e.currentTarget.style.backgroundColor;
+                let colors = bg_rgb.match(/([0-9]+), ([0-9]+), ([0-9]+)/);
+                if (rowItemsCounter[i][j] < 2){
+                    rowItemsOrigColors[i][j][0] = colors[1];
+                    rowItemsOrigColors[i][j][1] = colors[2];
+                    rowItemsOrigColors[i][j][2] = colors[3];
+                }
+                else{
+                    let r = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
+                    let g = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
+                    let b = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
+                }
             })
             rowContainers[i].appendChild(rowItems[i][j]);
         }
@@ -80,6 +98,10 @@ function generateRGB(){
 
 function generateColorValue(){
     return Math.floor(Math.random() * 255);
+}
+
+function darkenColor(origColor, color){
+    return Math.floor(color * 9 / 10);
 }
 
 generateGrid();

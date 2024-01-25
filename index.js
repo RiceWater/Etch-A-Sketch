@@ -22,12 +22,14 @@ let width = 16;
 let itemSize = 960 / (length * width);
 button.addEventListener("click", () => {
     length = prompt("Input number of columns (X axis)");
-    while (length > 100 || length < 1){
+    while (length > 100 || length < 1 ){
         length = prompt("Number of columns must be within 1-100");
+        if (length == undefined) break;
     }
     width = prompt("Input number of rows (Y axis)");
     while (width > 100 || width < 1){
         width = prompt("Number of rows must be within 1-100");
+        if (width == undefined) break;
     }
     initializeItemSize();
     generateGrid();

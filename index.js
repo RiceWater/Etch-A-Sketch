@@ -19,20 +19,16 @@ body.appendChild(gridContainer);
 
 let length = 16;
 let width = 16;
-button.addEventListener("click", () => {
-    length = prompt("Input number of columns (X axis)");
-    while (length > 100 || length < 1 ){
-        length = prompt("Number of columns must be within 1-100");
-        if (length == undefined) break;
-    }
-    width = prompt("Input number of rows (Y axis)");
-    while (width > 100 || width < 1){
-        width = prompt("Number of rows must be within 1-100");
-        if (width == undefined) break;
-    }
-    generateGrid();
-})
 
+function initializeGridContainer(){
+    gridContainer = document.createElement("div");
+    gridContainer.setAttribute("id", "gridContainer");
+    gridContainer.style.cssText = "display: flex; flex-direction: column; background-color: red;";
+    gridContainer.style.maxWidth = "960px";
+    gridContainer.style.minWidth = "960px";
+    gridContainer.style.minHeight = "780px";
+    gridContainer.style.maxHeight = "780px";
+}
 
 function generateGrid(){
     body.removeChild(gridContainer);
@@ -51,7 +47,7 @@ function generateGrid(){
 
             rowItems[i][j].style.backgroundColor = "yellow";
             rowItems[i][j].addEventListener("mouseenter", (e) => {
-                e.currentTarget.style.backgroundColor = "black";
+                e.currentTarget.style.backgroundColor = generateRGB();
             })
             rowContainers[i].appendChild(rowItems[i][j]);
         }
@@ -61,14 +57,29 @@ function generateGrid(){
     body.appendChild(gridContainer);
 }
 
-function initializeGridContainer(){
-    gridContainer = document.createElement("div");
-    gridContainer.setAttribute("id", "gridContainer");
-    gridContainer.style.cssText = "display: flex; flex-direction: column; background-color: red;";
-    gridContainer.style.maxWidth = "960px";
-    gridContainer.style.minWidth = "960px";
-    gridContainer.style.minHeight = "780px";
-    gridContainer.style.maxHeight = "780px";
+button.addEventListener("click", () => {
+    length = prompt("Input number of columns (X axis)");
+    while (length > 100 || length < 1 ){
+        length = prompt("Number of columns must be within 1-100");
+        if (length == undefined) break;
+    }
+    width = prompt("Input number of rows (Y axis)");
+    while (width > 100 || width < 1){
+        width = prompt("Number of rows must be within 1-100");
+        if (width == undefined) break;
+    }
+    generateGrid();
+})
+
+function generateRGB(){
+    let r = generateColorValue();
+    let g = generateColorValue();
+    let b = generateColorValue();
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+function generateColorValue(){
+    return Math.floor(Math.random() * 255);
 }
 
 generateGrid();

@@ -1,4 +1,6 @@
 const DUMMY_TEXT = "DUMMY TEXT";
+const GRID_WIDTH = "960px";
+const GRID_HEIGHT = "780px";
 
 const body = document.querySelector("body");
 body.style.display = "flex";
@@ -24,10 +26,10 @@ function initializeGridContainer(){
     gridContainer = document.createElement("div");
     gridContainer.setAttribute("id", "gridContainer");
     gridContainer.style.cssText = "display: flex; flex-direction: column; background-color: red;";
-    gridContainer.style.maxWidth = "960px";
-    gridContainer.style.minWidth = "960px";
-    gridContainer.style.minHeight = "780px";
-    gridContainer.style.maxHeight = "780px";
+    gridContainer.style.maxWidth = GRID_WIDTH;
+    gridContainer.style.minWidth = GRID_WIDTH;
+    gridContainer.style.minHeight = GRID_HEIGHT;
+    gridContainer.style.maxHeight = GRID_HEIGHT;
 }
 
 function generateGrid(){
@@ -53,18 +55,23 @@ function generateGrid(){
             rowItems[i][j].style.backgroundColor = "yellow";
             rowItems[i][j].addEventListener("mouseenter", (e) => {
                 rowItemsCounter[i][j]++;
-                e.currentTarget.style.backgroundColor = generateRGB();
-                let bg_rgb = e.currentTarget.style.backgroundColor;
-                let colors = bg_rgb.match(/([0-9]+), ([0-9]+), ([0-9]+)/);
+                let bg_rgb = "";
+                let colors = "";
                 if (rowItemsCounter[i][j] < 2){
+                    e.currentTarget.style.backgroundColor = generateRGB();
+                    bg_rgb = e.currentTarget.style.backgroundColor;
+                    colors = bg_rgb.match(/([0-9]+), ([0-9]+), ([0-9]+)/);
                     rowItemsOrigColors[i][j][0] = colors[1];
                     rowItemsOrigColors[i][j][1] = colors[2];
                     rowItemsOrigColors[i][j][2] = colors[3];
                 }
                 else{
-                    let r = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
-                    let g = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
-                    let b = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
+                    bg_rgb = e.currentTarget.style.backgroundColor;
+                    colors = bg_rgb.match(/([0-9]+), ([0-9]+), ([0-9]+)/);
+                    let rr = darkenColor(rowItemsOrigColors[i][j][0], colors[1]);
+                    let gg = darkenColor(rowItemsOrigColors[i][j][1], colors[2]);
+                    let bb = darkenColor(rowItemsOrigColors[i][j][2], colors[3]);
+                    e.currentTarget.style.backgroundColor = `rgb(${rr}, ${gg}, ${bb})`;
                 }
             })
             rowContainers[i].appendChild(rowItems[i][j]);
@@ -101,9 +108,9 @@ function generateColorValue(){
 }
 
 function darkenColor(origColor, color){
-    return Math.floor(color * 9 / 10);
+    let output = color - Math.ceil((origColor / 10));
+    return (output < 0) ? 0 : output;
 }
 
-generateGrid();
 
- 
+generateGrid();
